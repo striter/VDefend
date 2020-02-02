@@ -240,7 +240,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_Gaming = false;
         m_Audios.SwitchBGM(m_Gaming);
         m_Audios.Play(win?"Result_win":"Result_lose");
-        ShowGamePanel(win?"HEALTH IS ALL":"LIFE IS SHORT","RESTART",GameStart);
+        ShowGamePanel(win?"game":"lose", win ? "HEALTH IS ALL" : "LIFE IS SHORT", GameStart);
     }
 
 
@@ -285,15 +285,18 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     public void TryPathFind(GameTilePath sourcePath, GameTilePath targetPath, ref Queue<Vector2> paths)
     {
         paths.Clear();
+        if (sourcePath == targetPath)
+        {
+            paths.Enqueue(sourcePath.Pos);
+            return;
+        }
+
         Vector3 destination = targetPath.Pos;
         GameTilePath currentPath = sourcePath;
 
         int pathFindCount = 0;
         while(pathFindCount<15)
         {
-            if (currentPath == targetPath)
-                break;
-
             pathFindCount++;
             GameTilePath nextPath = null;
             float pathDistance = float.MaxValue;
@@ -312,6 +315,9 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             });
             currentPath = nextPath;
             paths.Enqueue(nextPath.Pos);
+
+            if (currentPath == targetPath)
+                break;
         }
     }
     #endregion
