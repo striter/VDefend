@@ -38,8 +38,7 @@ namespace GameSettings
         public const int I_TileYCount = 5;
         public const float F_TileSize = 90;
 
-        public const int I_InfectDisbaleStack = 5;
-        public const float F_InfectStackDuration = 5f;
+        public const float F_InfectDisableDuration = 5f;
         public const float F_DisableDuration= 10f;
         public const float F_CellDeinfectDuration = 3f;
         public const float F_AntibodyEffectRange = 100f;

@@ -24,6 +24,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
 
     Text m_GameTime, m_GameProgress, m_AntibodyTime;
     Transform m_GamePanel;
+    Image m_ProgressBar;
     Image m_GamePanel_Background;
     Text m_GamePanel_Button_Text;
     Button m_GamePanel_Button;
@@ -157,12 +158,13 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         AntibodyTick(deltaTime);
 
 
-        float virusProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
+        float gameProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
         m_AntibodyTime.text = string.Format("Antibody:{0:F2}", m_TimerAntibody.m_timeCheck);
-        m_GameProgress.text = string.Format("Progress:{0:F2}, Infect:{1}, Virus:{2}", virusProgress, m_InfectCount, m_VirusCount);
+        m_GameProgress.text = string.Format("Progress:{0:F2}, Infect:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
+        m_ProgressBar.fillAmount = gameProgress;
         m_GameTime.text = string.Format("Time:{0:F2}", m_GameTimePassed);
 
-        if (virusProgress < GameConsts.F_GameLoseScale)
+        if (gameProgress < GameConsts.F_GameLoseScale)
             OnGameFinish(false);
         if (m_InfectCount == 0 && m_VirusCount == 0)
             OnGameFinish(true);

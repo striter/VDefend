@@ -29,21 +29,15 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7bc0bdc97f098b34d82cc35fa6719cbf, type: 3}
-    totalSpriteSurfaceArea: 9245632
+    totalSpriteSurfaceArea: 6811153
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: c445ede031558d4428c943fe3a480faa, type: 3}
   - {fileID: 21300000, guid: 9a6e7055876f45d479f91cee622221bb, type: 3}
   - {fileID: 21300000, guid: 5ce2cc1707a5e5841a42565c54179902, type: 3}
-  - {fileID: 21300000, guid: 95175f0fa4d194e459295234859d1c01, type: 3}
-  - {fileID: 21300000, guid: 757ae815d8242c647a954315e7abcc08, type: 3}
   - {fileID: 21300000, guid: 1788a0e623d6a794290eeb70b3e2ebd8, type: 3}
-  - {fileID: 21300000, guid: 03addb82242fd7c4fb6e944e8a75bf0c, type: 3}
-  - {fileID: 21300000, guid: b28015a07fb568644be9a520228bad91, type: 3}
-  - {fileID: 21300000, guid: df5304c053deaa64ebd285792acf552b, type: 3}
   - {fileID: 21300000, guid: a69d348d2c32c0a4da391536e61737a9, type: 3}
-  - {fileID: 21300000, guid: 19a07b314f964e34689a63cd3a22d6bf, type: 3}
   - {fileID: 21300000, guid: 1eaf4ea05b1bcb24584ae6132ed8b7cb, type: 3}
   - {fileID: 21300000, guid: c4944821e10ff204bb6d66ffe43db447, type: 3}
   - {fileID: 21300000, guid: b1dd93044ab0a414498b32b39b64a026, type: 3}
@@ -55,18 +49,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: afd3aa5c932b3d34ebf4c6b514f1609e, type: 3}
   - {fileID: 21300000, guid: 38dcaeae176d1b847a46e54dad59a62d, type: 3}
   - {fileID: 21300000, guid: 13c2b3e1307d62543854537f34d897f0, type: 3}
+  - {fileID: 21300000, guid: 1b3045949c5d65142b5953e343d8e1bd, type: 3}
   m_PackedSpriteNamesToIndex:
   - game_home
   - game_win
   - game_lose
-  - bar_base
-  - bar_distroy
   - bar_life
-  - bar_clone
-  - word_destroy
-  - word_CLONE
   - virus
-  - word_life
   - cell_t_Attack
   - cell_t_Normal
   - dna_Restrain
@@ -78,5 +67,6 @@ SpriteAtlas:
   - cell_infected
   - cell_healthy
   - cell_t_Restrain
+  - UI_Common_White
   m_Tag: Atlas_Game
   m_IsVariant: 0

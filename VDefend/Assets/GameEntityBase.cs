@@ -100,7 +100,7 @@ public class GameEntityBase : MonoBehaviour{
 
         m_CellsEffecting.Traversal((GameTileCell cell) =>
         {
-                cell.DoInfectStack();
+                cell.DoInfect();
         } );
     }
 

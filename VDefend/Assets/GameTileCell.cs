@@ -5,14 +5,13 @@ using TTiles;
 using UnityEngine;
 using UnityEngine.UI;
 #pragma warning disable 0649
-public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill
+public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingleCoroutine
 {
     public bool m_Disabled => m_TimerDisabled.m_Timing;
-    public bool m_Infected => m_InfectStack > 0;
-    public int m_InfectStack { get; private set; } = 0;
-    TimeCounter m_TimerInfect = new TimeCounter(GameConsts.F_InfectStackDuration), m_TimerDisabled = new TimeCounter(),m_TimerDeinfect=new TimeCounter(GameConsts.F_CellDeinfectDuration);
+    public bool m_Infected { get; private set; } = false;
+    TimeCounter m_TimerInfectDisable = new TimeCounter(GameConsts.F_InfectDisableDuration), m_TimerDisabled = new TimeCounter(), m_TimerDeinfect = new TimeCounter(GameConsts.F_CellDeinfectDuration);
     Transform m_Container;
-    Image m_Container_Image,m_Container_Infect,m_Container_Deinfect;
+    Image m_Container_Image, m_Container_Infect, m_Container_Deinfect;
     public override void Init(TileAxis _axis)
     {
         base.Init(_axis);
@@ -21,20 +20,23 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill
     }
     void OnActivate()
     {
-        m_TimerInfect.Reset();
+        m_TimerInfectDisable.Reset();
         m_TimerDeinfect.Reset();
         m_TimerDisabled.SetTimer(0);
-        m_InfectStack = 0;
+        m_Infected = false;
         StatusChange();
     }
 
     void StatusChange()
     {
-        m_Container.SetActivate(!m_Disabled);
-        m_Container_Image.sprite = GameManager.Instance.m_Resources.m_GameAtlas[m_Infected?"cell_healthy":"cell_infected"];
-        m_Container_Infect.SetActivate(m_Infected);
-        m_Container_Deinfect.SetActivate(m_Infected);
-        m_Container_Infect.fillAmount = 1 - m_TimerInfect.m_TimeLeftScale;
+        m_Container_Image.sprite = GameManager.Instance.m_Resources.m_GameAtlas[m_Disabled ? "cell_grey" : !m_Infected ? "cell_healthy" : "cell_infected"];
+        if (m_Disabled)
+            this.StartSingleCoroutine(0, TIEnumerators.ChangeValueTo((float value) => { m_Container_Image.color = TCommon.ColorAlpha(m_Container_Image.color, value); }, 1, 0, 2));
+        else
+            m_Container_Image.color = TCommon.ColorAlpha(m_Container_Image.color, 1f);
+        m_Container_Infect.SetActivate(!m_Disabled && m_Infected);
+        m_Container_Deinfect.SetActivate(!m_Disabled && m_Infected);
+        m_Container_Infect.fillAmount = 1 - m_TimerInfectDisable.m_TimeLeftScale;
         m_Container_Deinfect.fillAmount = 1 - m_TimerDeinfect.m_TimeLeftScale;
     }
 
@@ -47,35 +49,28 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill
                 OnActivate();
             return;
         }
-        
+
         if (m_Infected)
         {
-            m_Container_Infect.fillAmount =1- m_TimerInfect.m_TimeLeftScale;
-            m_Container_Deinfect.fillAmount =1- m_TimerDeinfect.m_TimeLeftScale;
-            m_TimerInfect.Tick(deltaTime);
-            if (!m_TimerInfect.m_Timing)
+            m_Container_Infect.fillAmount = 1 - m_TimerInfectDisable.m_TimeLeftScale;
+            m_Container_Deinfect.fillAmount = 1 - m_TimerDeinfect.m_TimeLeftScale;
+            m_TimerInfectDisable.Tick(deltaTime);
+            if (!m_TimerInfectDisable.m_Timing)
             {
-                m_TimerInfect.Reset();
-                DoInfectStack();
+                if (!GameManager.Instance.CostNearbyAntibody(Pos))
+                    GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
+                DoDisable();
             }
         }
     }
 
 
-    public void DoInfectStack()
+    public void DoInfect()
     {
-        if (m_Disabled)
+        if (m_Disabled || m_Infected)
             return;
-        
-        m_InfectStack++;
+        m_Infected = true; 
         StatusChange();
-        if (m_InfectStack > GameConsts.I_InfectDisbaleStack)
-        {
-            if (!GameManager.Instance.CostNearbyAntibody(Pos))
-                GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
-
-            DoDisable();
-        }
     }
     
     public void DoDeinfect(float deltaTime)
@@ -96,8 +91,8 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill
         if (!m_Infected)
             return;
 
-        m_InfectStack = 0;
-        m_TimerInfect.Reset();
+        m_Infected = false;
+        m_TimerInfectDisable.Reset();
         DoDisable();
     }
 }
