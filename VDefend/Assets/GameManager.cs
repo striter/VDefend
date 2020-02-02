@@ -165,8 +165,8 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         AntibodyTick(deltaTime);
         
         float gameProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
-        m_AntibodyTime.text = string.Format("Antibody Coming:{0:F2}", m_TimerAntibody.m_timeCheck);
-        m_GameProgress.text = string.Format("Body Health:{0:F2}, Infected Cells:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
+        m_AntibodyTime.text = string.Format("Antibody in Coming:{0:F2}", m_TimerAntibody.m_timeCheck);
+        m_GameProgress.text = string.Format("Body Function:{0:F2}, Infected Cells:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
         m_ProgressBar.fillAmount = gameProgress;
         m_GameTime.text = string.Format("Game Time:{0:F2}", m_GameTimePassed);
 

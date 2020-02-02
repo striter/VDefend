@@ -42,9 +42,9 @@ namespace GameSettings
         public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 2;
         public const float F_InfectDisableDuration = 30f;
-        public const float F_DisableDuration= 10f;
-        public const float F_CellDeinfectDuration = 3f;
-        public const float F_AntibodyEffectRange = 20f;
+        public const float F_DisableDuration= 60f;
+        public const float F_CellDeinfectDuration = 1f;
+        public const float F_AntibodyEffectRange = 30f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
         public const float F_TCellPickupDuration = 30f;
@@ -75,7 +75,7 @@ namespace GameSettings
             switch(type)
             {
                 case enum_EntityType.Antibody:
-                    data = new EntityData(60f, 0f, 0f);
+                    data = new EntityData(30f, 0f, 0f);
                     break;
                 case enum_EntityType.Virus:
                     data = new EntityData(100f, 200f, 0f);
@@ -87,10 +87,10 @@ namespace GameSettings
                             data = new EntityData(100f, 180f, 1f);
                             break;
                         case enum_TCellState.Attack:
-                            data = new EntityData(130f, 250f, 2f);
+                            data = new EntityData(200f, 250f, 2f);
                             break;
                         case enum_TCellState.Restrain:
-                            data = new EntityData(75f, 100f, .5f);
+                            data = new EntityData(20f, 100f, .25f);
                             break;
                         case enum_TCellState.Assist:
                             data = new EntityData(100f, 200f, 0f);
