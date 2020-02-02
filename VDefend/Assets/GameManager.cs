@@ -47,7 +47,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     private void Start()
     {
         m_Audios.SwitchBGM(m_Gaming);
-        ShowGamePanel("home", "Start", GameStart);
+        ShowGamePanel("home", "START", GameStart);
     }
     void GameStart()
     {
@@ -240,7 +240,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_Gaming = false;
         m_Audios.SwitchBGM(m_Gaming);
         m_Audios.Play(win?"Result_win":"Result_lose");
-        ShowGamePanel(win?"win":"lose","Restart",GameStart);
+        ShowGamePanel(win?"HEALTH IS ALL":"LIFE IS SHORT","RESTART",GameStart);
     }
 
 
