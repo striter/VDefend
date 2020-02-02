@@ -134,7 +134,7 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
         if (m_HavePath)
             return;
 
-        GameManager.Instance.TryPathFind(GameManager.Instance.GetPathFindPoint(Pos), GameManager.Instance.RandomPathPoint(), ref m_PathFinding);
+        m_PathFinding= GameManager.Instance.TryPathFind(GameManager.Instance.GetPathFindPoint(Pos), GameManager.Instance.RandomPathPoint());
     }
     void TickPathFind(float deltaTime)
     {
