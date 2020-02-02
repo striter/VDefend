@@ -355,7 +355,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         }
     }
 
-    public bool CostNearbyAntibody(Vector2 pos)
+    public bool CostNearbyAntibody(Vector2 checkPos)
     {
         if(!m_EntityDic.ContainsKey( enum_EntityType.Antibody))
             return false;
@@ -365,7 +365,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         foreach(int index in m_EntityDic[ enum_EntityType.Antibody])
         {
             GameEntityBase targetEntity = m_EntityPool.GetItem(index);
-            float nDistance = Vector2.Distance(pos, targetEntity.Pos);
+            float nDistance = Vector2.Distance(checkPos, targetEntity.Pos);
             if (nDistance > GameConsts.F_AntibodyEffectRange&& distance > nDistance)
             {
                 distance = nDistance;
@@ -374,7 +374,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         }
 
         if (targetAntibody)
-            targetAntibody.OnDead();
+            targetAntibody.DoAbsorb(checkPos);
         return targetAntibody;
     }
 

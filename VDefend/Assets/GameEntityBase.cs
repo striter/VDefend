@@ -5,7 +5,7 @@ using GameSettings;
 using UnityEngine.UI;
 using System;
 #pragma warning disable 0649
-public class GameEntityBase : MonoBehaviour{
+public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
     public enum_EntityType m_EntityType { get; private set; }
     public enum_TCellState m_TCellType { get; private set; } = enum_TCellState.Invalid;
     public int m_Identity { get; private set; }
@@ -13,6 +13,7 @@ public class GameEntityBase : MonoBehaviour{
     public RectTransform rectTransform { get; private set; }
 
     bool m_PlayerControling = false;
+    bool m_Activating = false;
     Action<int> DoRecycle;
     List<GameTileCell> m_CellsEffecting = new List<GameTileCell>();
     public EntityData m_Data { get; private set; }
@@ -21,6 +22,8 @@ public class GameEntityBase : MonoBehaviour{
 
     public void Activate( enum_EntityType type, int identity, Action<int> DoRecycle)
     {
+        m_Activating = true;
+        this.StopAllCoroutines();
         rectTransform = transform as RectTransform;
         m_EntityType = type;
         m_Identity = identity;
@@ -32,8 +35,14 @@ public class GameEntityBase : MonoBehaviour{
         transform.Find(enum_EntityType.Antibody.ToString()).SetActivate(m_EntityType == enum_EntityType.Antibody);
         transform.Find(enum_EntityType.TCell.ToString()).SetActivate(m_EntityType == enum_EntityType.TCell);
         transform.Find(enum_EntityType.Virus.ToString()).SetActivate(m_EntityType == enum_EntityType.Virus);
+        transform.localScale = Vector3.one;
         SwitchState(enum_TCellState.Normal);
     }
+    private void OnDisable()
+    {
+        this.StopAllCoroutines();
+    }
+
     void SwitchState(enum_TCellState type)
     {
         m_TCellType = type;
@@ -54,6 +63,9 @@ public class GameEntityBase : MonoBehaviour{
 
     public void Tick(float deltaTime)
     {
+        if (!m_Activating)
+            return;
+
         if (!m_PlayerControling)
             TickAIMove(deltaTime);
 
@@ -67,12 +79,21 @@ public class GameEntityBase : MonoBehaviour{
                 break;
         }
 
-        TickPathFind(deltaTime);
+        if(m_Activating)
+            TickPathFind(deltaTime);
     }
 
-    public void OnDead()
+    public void DoAbsorb(Vector2 absorbPos)
     {
-        DoRecycle(m_Identity);
+        m_Activating = false;
+        Vector2 startPos = Pos;
+        this.StartSingleCoroutine(0, TIEnumerators.ChangeValueTo((float value) =>
+        {
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, absorbPos, value);
+            transform.localScale = Vector3.one * Mathf.Lerp(1,.5f,value); 
+        }, 0, 1, 2f,()=> {
+            DoRecycle(m_Identity);
+        }));
     }
     #region TCell
 
@@ -93,16 +114,15 @@ public class GameEntityBase : MonoBehaviour{
         if (GameManager.Instance.CostNearbyAntibody(Pos))
         {
             GameManager.Instance.m_Audios.Play("Antibody_eat");
-            OnDead();
+            DoAbsorb(Pos);
             return;
         }
 
         GameManager.Instance.CheckNearbyCells(this, ref m_CellsEffecting, p => !p.m_Infected);
 
-        m_CellsEffecting.Traversal((GameTileCell cell) =>
-        {
-                cell.DoInfect();
-        } );
+        GameTileCell cell = m_CellsEffecting.RandomItem();
+        cell.DoInfect();
+        DoAbsorb(cell.Pos);
     }
 
     #region PathFind
