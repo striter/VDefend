@@ -280,13 +280,11 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     public void TryPathFind(Vector2 source, Vector2 destination, ref Queue<Vector2> paths)
     {
         GameTilePath sourcePath = GetPathFindPoint(source);
-        TryPathFind(sourcePath, GetPathFindPoint(destination), ref paths, Vector2.Distance(source,sourcePath.Pos)>GameConsts.F_TileSize*2/3f);
+        TryPathFind(sourcePath, GetPathFindPoint(destination), ref paths);
     }
-    public void TryPathFind(GameTilePath sourcePath, GameTilePath targetPath, ref Queue<Vector2> paths,bool addSource=false)
+    public void TryPathFind(GameTilePath sourcePath, GameTilePath targetPath, ref Queue<Vector2> paths)
     {
         paths.Clear();
-        if(addSource)
-        paths.Enqueue(sourcePath.Pos);
         Vector3 destination = targetPath.Pos;
         GameTilePath currentPath = sourcePath;
         int pathFindCount = 0;
@@ -360,15 +358,14 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             return false;
 
         GameEntityBase targetAntibody=null;
-        float distance = float.MaxValue;
         foreach(int index in m_EntityDic[ enum_EntityType.Antibody])
         {
             GameEntityBase targetEntity = m_EntityPool.GetItem(index);
-            float nDistance = Vector2.Distance(checkPos, targetEntity.Pos);
-            if (nDistance > GameConsts.F_AntibodyEffectRange&& distance > nDistance)
+            float distance = Vector2.Distance(checkPos, targetEntity.Pos);
+            if (distance < GameConsts.F_AntibodyEffectRange)
             {
-                distance = nDistance;
                 targetAntibody = targetEntity;
+                break;
             }
         }
 

@@ -23,7 +23,6 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
     public void Activate( enum_EntityType type, int identity, Action<int> DoRecycle)
     {
         m_Activating = true;
-        this.StopAllCoroutines();
         rectTransform = transform as RectTransform;
         m_EntityType = type;
         m_Identity = identity;
@@ -36,6 +35,7 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
         transform.Find(enum_EntityType.TCell.ToString()).SetActivate(m_EntityType == enum_EntityType.TCell);
         transform.Find(enum_EntityType.Virus.ToString()).SetActivate(m_EntityType == enum_EntityType.Virus);
         transform.localScale = Vector3.one;
+        this.StopAllCoroutines();
         SwitchState(enum_TCellState.Normal);
     }
     private void OnDisable()
@@ -119,7 +119,7 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
         }
 
         GameManager.Instance.CheckNearbyCells(this, ref m_CellsEffecting, p => !p.m_Infected);
-        if (m_CellsEffecting.Count < 0)
+        if (m_CellsEffecting.Count <= 0)
             return;
         GameTileCell cell = m_CellsEffecting.RandomItem();
         cell.DoInfect();
