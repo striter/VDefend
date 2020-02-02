@@ -119,7 +119,7 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
         }
 
         GameManager.Instance.CheckNearbyCells(this, ref m_CellsEffecting, p => !p.m_Infected);
-        if (m_CellsEffecting.Count < 0)
+        if (m_CellsEffecting.Count <= 0)
             return;
         GameTileCell cell = m_CellsEffecting.RandomItem();
         cell.DoInfect();
