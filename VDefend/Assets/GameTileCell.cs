@@ -65,7 +65,7 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
                     if (!GameManager.Instance.CostNearbyAntibody(Pos))
                     {
                         breakOut = true;
-                        GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
+                        GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos+new Vector2(Random.value*10f,Random.value*10f));
                     }
                     else
                     {
