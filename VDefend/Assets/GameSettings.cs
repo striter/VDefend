@@ -46,6 +46,7 @@ namespace GameSettings
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
         public const float F_TCellPickupDuration = 30f;
+        public const float F_GameLoseScale = .2f;
     }
 
     public static class GameExpressions

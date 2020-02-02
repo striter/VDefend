@@ -14,12 +14,19 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     ObjectPoolSimpleComponent<int, GameEntityBase> m_EntityPool;
     ObjectPoolSimpleComponent<enum_TCellState, GamePickup> m_PickupPool;
     Dictionary<enum_EntityType, List<int>> m_EntityDic=new Dictionary<enum_EntityType, List<int>>(); 
-    Text m_GameTime,m_GameProgress,m_AntibodyTime;
     public bool m_Gaming { get; private set; }
     GameEntityBase m_Player;
     float m_GameTimePassed = 0f;
     TimeCounter m_TimerAntibody = new TimeCounter(),m_TimerPickup=new TimeCounter(GameConsts.F_TCellPickupDuration);
     Vector2 m_AntibodyPos;
+
+
+    Text m_GameTime, m_GameProgress, m_AntibodyTime;
+    Transform m_GameResult;
+    Text m_GameResult_Title;
+    Button m_GameResult_Restart;
+    Button m_Quit;
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,6 +35,8 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_PathTilePool = new ObjectPoolSimpleComponent<TileAxis, GameTilePath>(transform.Find("PathGrid"), "GridItem");
         m_EntityPool = new ObjectPoolSimpleComponent<int, GameEntityBase>(transform.Find("Entities"),"EntityItem");
         m_PickupPool=new ObjectPoolSimpleComponent<enum_TCellState, GamePickup>(transform.Find("Pickups"),"GridItem");
+        m_Quit.onClick.AddListener(Application.Quit);
+        m_GameResult_Restart.onClick.AddListener(GameStart);
     }
     private void Start()
     {
@@ -107,6 +116,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_GameTimePassed = 0f;
         SpawnPickups();
         PrepareAntibody();
+        m_GameResult.SetActivate(!m_Gaming);
     }
 
     private void Update()
@@ -145,9 +155,16 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         PickupTick(deltaTime);
         AntibodyTick(deltaTime);
 
+
+        float virusProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
         m_AntibodyTime.text = string.Format("Antibody:{0:F2}", m_TimerAntibody.m_timeCheck);
-        m_GameProgress.text = string.Format("Progress:{0:F2}, Infect:{1}, Virus:{2}", m_DisableCount / (float) m_CellTilePool.m_ActiveItemDic.Count,m_InfectCount,m_VirusCount);
+        m_GameProgress.text = string.Format("Progress:{0:F2}, Infect:{1}, Virus:{2}", virusProgress, m_InfectCount, m_VirusCount);
         m_GameTime.text = string.Format("Time:{0:F2}", m_GameTimePassed);
+
+        if (virusProgress < GameConsts.F_GameLoseScale)
+            OnGameFinish(false);
+        if (m_InfectCount == 0 && m_VirusCount == 0)
+            OnGameFinish(true);
     }
     void PrepareAntibody()
     {
@@ -201,6 +218,13 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             return false;
         });
         return state;
+    }
+
+    void OnGameFinish(bool win)
+    {
+        m_Gaming = false;
+        m_GameResult.SetActivate(!m_Gaming);
+        m_GameResult_Title.text = win ? "Win" : "Lose";
     }
 
     #region Pathfind
