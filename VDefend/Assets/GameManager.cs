@@ -28,9 +28,12 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_PathTilePool = new ObjectPoolSimpleComponent<TileAxis, GameTilePath>(transform.Find("PathGrid"), "GridItem");
         m_EntityPool = new ObjectPoolSimpleComponent<int, GameEntityBase>(transform.Find("Entities"),"EntityItem");
         m_PickupPool=new ObjectPoolSimpleComponent<enum_TCellState, GamePickup>(transform.Find("Pickups"),"GridItem");
-        GameStart();
     }
+    private void Start()
+    {
+        GameStart();
 
+    }
     void GameStart()
     {
         m_CellTilePool.ClearPool();
