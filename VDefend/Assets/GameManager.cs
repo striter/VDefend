@@ -16,6 +16,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     Dictionary<enum_EntityType, List<int>> m_EntityDic=new Dictionary<enum_EntityType, List<int>>(); 
     public bool m_Gaming { get; private set; }
     public GameResources m_Resources { get; private set; }
+    public GameAudio m_Audios { get; private set; }
     GameEntityBase m_Player;
     float m_GameTimePassed = 0f;
     TimeCounter m_TimerAntibody = new TimeCounter(),m_TimerPickup=new TimeCounter(GameConsts.F_TCellPickupDuration);
@@ -37,12 +38,15 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_PathTilePool = new ObjectPoolSimpleComponent<TileAxis, GameTilePath>(transform.Find("PathGrid"), "GridItem");
         m_EntityPool = new ObjectPoolSimpleComponent<int, GameEntityBase>(transform.Find("Entities"),"EntityItem");
         m_PickupPool=new ObjectPoolSimpleComponent<enum_TCellState, GamePickup>(transform.Find("Pickups"),"GridItem");
-        m_Quit.onClick.AddListener(Application.Quit);
+        m_Quit.onClick.AddListener(OnQuitClick);
         m_GamePanel_Button.onClick.AddListener(GameStart);
         m_Resources = GetComponent<GameResources>();
+        m_Audios = GetComponent<GameAudio>();
+        m_Audios.Init();
     }
     private void Start()
     {
+        m_Audios.SwitchBGM(m_Gaming);
         ShowGamePanel("home", "Start", GameStart);
     }
     void GameStart()
@@ -111,14 +115,17 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
 
         ResetEntityDic();
         m_Player=SpawnEntity( enum_EntityType.TCell,Vector2.zero).PlayerTakeControll();
-        SpawnEntity(enum_EntityType.TCell, RandomPathPoint().Pos);
-        SpawnEntity(enum_EntityType.Virus, RandomPathPoint().Pos);
+        for(int i=0;i<GameConsts.I_StartAllyCount;i++)
+            SpawnEntity(enum_EntityType.TCell, RandomPathPoint().Pos);
+        for (int i = 0; i < GameConsts.I_StartVirusCount; i++)
+            SpawnEntity(enum_EntityType.Virus, RandomPathPoint().Pos);
 
         m_Gaming = true;
         m_GameTimePassed = 0f;
         SpawnPickups();
         PrepareAntibody();
         m_GamePanel.SetActivate(!m_Gaming);
+        m_Audios.SwitchBGM(m_Gaming);
     }
 
     private void Update()
@@ -182,6 +189,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             int count = GameExpressions.GameAntibodyCount(m_GameTimePassed, m_Player.m_TCellType == enum_TCellState.Assist);
             for(int i=0;i<count;i++)
                 SpawnEntity( enum_EntityType.Antibody,m_AntibodyPos+new Vector2(UnityEngine.Random.value*GameConsts.F_AntibodyGenerateRange, UnityEngine.Random.value*GameConsts.F_AntibodyGenerateRange) );
+            m_Audios.Play("Antibody_appear", 2);
             PrepareAntibody();
         }
     }
@@ -198,6 +206,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     void SpawnPickups()
     {
         m_PickupPool.ClearPool();
+        m_Audios.Play("Item_generate");
         TCommon.TraversalEnum((enum_TCellState state) =>
         {
             if (state == enum_TCellState.Normal)
@@ -219,6 +228,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             {
                 state = pickup.m_TCellType;
                 m_PickupPool.RemoveItem(pickup.m_TCellType);
+                m_Audios.Play("Item_use");
                 return true;
             }
             return false;
@@ -229,6 +239,8 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     void OnGameFinish(bool win)
     {
         m_Gaming = false;
+        m_Audios.SwitchBGM(m_Gaming);
+        m_Audios.Play(win?"Result_win":"Result_lose");
         ShowGamePanel(win?"win":"lose","Restart",GameStart);
     }
 
@@ -239,7 +251,13 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_GamePanel_Button_Text.text = text;
         m_GamePanel_Background.sprite = m_Resources.m_GameAtlas["game_"+bg];
         m_GamePanel_Button.onClick.RemoveAllListeners();
-        m_GamePanel_Button.onClick.AddListener(()=> { OnClick();m_GamePanel.SetActivate(false); });
+        m_GamePanel_Button.onClick.AddListener(()=> { m_Audios.Play("UI",2); OnClick();m_GamePanel.SetActivate(false); });
+    }
+
+    void OnQuitClick()
+    {
+        Application.Quit();
+        m_Audios.Play("UI_2");
     }
 
     #region Pathfind
@@ -356,7 +374,10 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         }
 
         if (targetAntibody)
+        {
             targetAntibody.OnDead();
+            m_Audios.Play("Antibody_eat");
+        }
         return targetAntibody;
     }
 

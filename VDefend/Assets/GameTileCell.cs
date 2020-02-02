@@ -58,7 +58,10 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
             if (!m_TimerInfectDisable.m_Timing)
             {
                 if (!GameManager.Instance.CostNearbyAntibody(Pos))
+                {
                     GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
+                    GameManager.Instance.m_Audios.Play("Cell_death_outbreak",2);
+                }
                 DoDisable();
             }
         }
@@ -76,8 +79,13 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
     public void DoDeinfect(float deltaTime)
     {
         m_TimerDeinfect.Tick(deltaTime);
-        if (!m_TimerDeinfect.m_Timing)
-            DoDisable();
+        if (m_TimerDeinfect.m_Timing)
+            return;
+
+        m_Infected = false;
+        m_TimerInfectDisable.Reset();
+        GameManager.Instance.m_Audios.Play("Cell_death_peace");
+        DoDisable();
     }
 
     void DoDisable()
@@ -85,14 +93,5 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
         m_TimerDisabled.SetTimer(GameConsts.F_DisableDuration);
         StatusChange();
     }
-
-    void ClearInfect()
-    {
-        if (!m_Infected)
-            return;
-
-        m_Infected = false;
-        m_TimerInfectDisable.Reset();
-        DoDisable();
-    }
+    
 }
