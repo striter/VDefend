@@ -92,6 +92,7 @@ public class GameEntityBase : MonoBehaviour{
     {
         if (GameManager.Instance.CostNearbyAntibody(Pos))
         {
+            GameManager.Instance.m_Audios.Play("Antibody_eat");
             OnDead();
             return;
         }

@@ -57,11 +57,26 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
             m_TimerInfectDisable.Tick(deltaTime);
             if (!m_TimerInfectDisable.m_Timing)
             {
-                if (!GameManager.Instance.CostNearbyAntibody(Pos))
+                bool breakOut = false;
+                bool antiBodyCost = false;
+                for (int i = 0; i < GameConsts.I_BreakOutVirusCount; i++)
                 {
-                    GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
-                    GameManager.Instance.m_Audios.Play("Cell_death_outbreak",2);
+                    
+                    if (!GameManager.Instance.CostNearbyAntibody(Pos))
+                    {
+                        breakOut = true;
+                        GameManager.Instance.SpawnEntity(enum_EntityType.Virus, Pos);
+                    }
+                    else
+                    {
+                        antiBodyCost = true;
+                    }
                 }
+                if (breakOut)
+                    GameManager.Instance.m_Audios.Play("Cell_death_outbreak", 2);
+                if (antiBodyCost)
+                    GameManager.Instance.m_Audios.Play("Antibody_eat");
+
                 DoDisable();
             }
         }

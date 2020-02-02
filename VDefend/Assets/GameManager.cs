@@ -374,10 +374,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         }
 
         if (targetAntibody)
-        {
             targetAntibody.OnDead();
-            m_Audios.Play("Antibody_eat");
-        }
         return targetAntibody;
     }
 
