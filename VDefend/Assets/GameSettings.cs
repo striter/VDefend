@@ -40,15 +40,15 @@ namespace GameSettings
 
         public const int I_StartVirusCount = 5;
         public const int I_StartAllyCount = 0;
-        public const int I_BreakOutVirusCount = 2;
+        public const int I_BreakOutVirusCount = 3;
         public const float F_InfectDisableDuration = 30f;
         public const float F_DisableDuration= 60f;
-        public const float F_CellDeinfectDuration = 1f;
+        public const float F_CellDeinfectDuration = 2f;
         public const float F_AntibodyEffectRange = 30f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
         public const float F_TCellPickupDuration = 30f;
-        public const float F_GameLoseScale = .3f;
+        public const float F_GameLoseScale = .6f;
     }
 
     public static class GameExpressions
@@ -62,7 +62,7 @@ namespace GameSettings
         }
         public static int GameAntibodyCount(float gameTime, bool playerAsssiting)
         {
-            int count = (int)(gameTime / 120) + 3;
+            int count = (int)(gameTime / 120) + 2;
             if (playerAsssiting)
                 count *= 2;
             count = Mathf.Clamp(count, 0, 10);
@@ -84,16 +84,16 @@ namespace GameSettings
                     switch (tcellType)
                     {
                         case enum_TCellState.Normal:
-                            data = new EntityData(100f, 180f, 1f);
+                            data = new EntityData(80f, 180f, 1f);
                             break;
                         case enum_TCellState.Attack:
-                            data = new EntityData(200f, 250f, 2f);
+                            data = new EntityData(150f, 180f, 2f);
                             break;
                         case enum_TCellState.Restrain:
-                            data = new EntityData(20f, 100f, .25f);
+                            data = new EntityData(20f, 180f, .25f);
                             break;
                         case enum_TCellState.Assist:
-                            data = new EntityData(100f, 200f, 0f);
+                            data = new EntityData(50f, 180f, 0f);
                             break;
                     }
                     break;

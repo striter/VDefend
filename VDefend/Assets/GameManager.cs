@@ -166,7 +166,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         
         float gameProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
         m_AntibodyTime.text = string.Format("Antibody in Coming:{0:F2}", m_TimerAntibody.m_timeCheck);
-        m_GameProgress.text = string.Format("Body Function:{0:F2}, Infected Cells:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
+        m_GameProgress.text = string.Format("Body Function:{0:F2}(/0.6), Infected Cells:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
         m_ProgressBar.fillAmount = gameProgress;
         m_GameTime.text = string.Format("Game Time:{0:F2}", m_GameTimePassed);
 
@@ -240,7 +240,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_Gaming = false;
         m_Audios.SwitchBGM(m_Gaming);
         m_Audios.Play(win?"Result_win":"Result_lose");
-        ShowGamePanel(win?"game":"lose", win ? "HEALTH IS ALL" : "LIFE IS SHORT", GameStart);
+        ShowGamePanel(win?"win":"lose","RESTART" , GameStart);
     }
 
 
