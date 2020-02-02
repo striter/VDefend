@@ -41,8 +41,8 @@ namespace GameSettings
         public const int I_StartVirusCount = 5;
         public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 3;
-        public const float F_InfectDisableDuration = 30f;
-        public const float F_DisableDuration= 60f;
+        public const float F_InfectDisableDuration = 25f;
+        public const float F_DisableDuration= 70f;
         public const float F_CellDeinfectDuration = 2f;
         public const float F_AntibodyEffectRange = 30f;
         public const float F_AntibodyGenerateRange = 300f;
