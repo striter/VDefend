@@ -5,30 +5,30 @@ namespace GameSettings
     #region GameEnums
     public enum enum_EntityType
     {
-        Invalid=-1,
-        TCell=3,
-        Virus=2,
-        Antibody=1,
+        Invalid = -1,
+        TCell = 3,
+        Virus = 2,
+        Antibody = 1,
     }
 
     public enum enum_TCellState
     {
-        Invalid=-1,
-        Normal=1,
-        Attack=2,
-        Restrain=3,
-        Assist=4,
+        Invalid = -1,
+        Normal = 1,
+        Attack = 2,
+        Restrain = 3,
+        Assist = 4,
     }
 
     public enum enum_PathDirection
     {
-        Invalid=-1,
-        E=0,
-        NE=1,
-        SE=2,
-        W=3,
-        SW=4,
-        NW=5,
+        Invalid = -1,
+        E = 0,
+        NE = 1,
+        SE = 2,
+        W = 3,
+        SW = 4,
+        NW = 5,
     }
     #endregion
 
@@ -38,12 +38,12 @@ namespace GameSettings
         public const int I_TileYCount = 5;
         public const float F_TileSize = 90;
 
-        public const int I_StartVirusCount = 5;
+        public const int I_StartVirusCount = 7;
         public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 3;
-        public const float F_InfectDisableDuration = 25f;
-        public const float F_DisableDuration= 70f;
-        public const float F_CellDeinfectDuration = 2f;
+        public const float F_InfectDisableDuration = 20f;
+        public const float F_DisableDuration = 70f;
+        public const float F_CellDeinfectDuration = 3f;
         public const float F_AntibodyEffectRange = 30f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
@@ -69,10 +69,10 @@ namespace GameSettings
             return count;
         }
 
-        public static EntityData GetEntityData(enum_EntityType type,enum_TCellState tcellType)
+        public static EntityData GetEntityData(enum_EntityType type, enum_TCellState tcellType)
         {
             EntityData data = new EntityData();
-            switch(type)
+            switch (type)
             {
                 case enum_EntityType.Antibody:
                     data = new EntityData(30f, 0f, 0f);
@@ -90,7 +90,7 @@ namespace GameSettings
                             data = new EntityData(150f, 180f, 2f);
                             break;
                         case enum_TCellState.Restrain:
-                            data = new EntityData(20f, 180f, .25f);
+                            data = new EntityData(50f, 180f, .25f);
                             break;
                         case enum_TCellState.Assist:
                             data = new EntityData(50f, 180f, 0f);
@@ -102,7 +102,7 @@ namespace GameSettings
         }
         public static enum_PathDirection InverseDirection(this enum_PathDirection direction)
         {
-            switch(direction)
+            switch (direction)
             {
                 default:
                     return enum_PathDirection.Invalid;
@@ -127,7 +127,7 @@ namespace GameSettings
         public float m_Speed;
         public float m_Range;
         public float m_DeinfectMultiple;
-        public EntityData(float speed,float range,float deinfectMultiple)
+        public EntityData(float speed, float range, float deinfectMultiple)
         {
             m_DeinfectMultiple = deinfectMultiple;
             m_Speed = speed;
