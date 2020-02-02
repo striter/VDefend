@@ -13,6 +13,6 @@ public class GamePickup : MonoBehaviour {
     {
         rectTransform = transform as RectTransform;
         m_TCellType = type;
-        GetComponentInChildren<Image>().color = type.GetColor();
+        GetComponentInChildren<Image>().sprite = GameManager.Instance.m_Resources.m_GameAtlas["dna_"+type];
     }
 }

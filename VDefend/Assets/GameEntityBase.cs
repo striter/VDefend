@@ -17,25 +17,28 @@ public class GameEntityBase : MonoBehaviour{
     List<GameTileCell> m_CellsEffecting = new List<GameTileCell>();
     public EntityData m_Data { get; private set; }
     Queue<Vector2> m_PathFinding = new Queue<Vector2>();
+    Image m_TCell;
 
     public void Activate( enum_EntityType type, int identity, Action<int> DoRecycle)
     {
         rectTransform = transform as RectTransform;
-        transform.Find(enum_EntityType.Antibody.ToString()).SetActivate(type== enum_EntityType.Antibody);
-        transform.Find(enum_EntityType.TCell.ToString()).SetActivate(type == enum_EntityType.TCell);
-        transform.Find(enum_EntityType.Virus.ToString()).SetActivate(type == enum_EntityType.Virus);
         m_EntityType = type;
         m_Identity = identity;
         this.DoRecycle = DoRecycle;
         m_PathFinding.Clear();
         m_CellsEffecting.Clear();
         m_PlayerControling = false;
+        m_TCell = transform.Find("TCell").GetComponent<Image>();
+        transform.Find(enum_EntityType.Antibody.ToString()).SetActivate(m_EntityType == enum_EntityType.Antibody);
+        transform.Find(enum_EntityType.TCell.ToString()).SetActivate(m_EntityType == enum_EntityType.TCell);
+        transform.Find(enum_EntityType.Virus.ToString()).SetActivate(m_EntityType == enum_EntityType.Virus);
         SwitchState(enum_TCellState.Normal);
     }
     void SwitchState(enum_TCellState type)
     {
         m_TCellType = type;
         m_Data = GameExpressions.GetEntityData(m_EntityType, m_TCellType);
+        m_TCell.sprite = GameManager.Instance.m_Resources.m_GameAtlas["cell_t_"+m_TCellType];
     }
 
     public GameEntityBase PlayerTakeControll()

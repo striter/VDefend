@@ -15,6 +15,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     ObjectPoolSimpleComponent<enum_TCellState, GamePickup> m_PickupPool;
     Dictionary<enum_EntityType, List<int>> m_EntityDic=new Dictionary<enum_EntityType, List<int>>(); 
     public bool m_Gaming { get; private set; }
+    public GameResources m_Resources { get; private set; }
     GameEntityBase m_Player;
     float m_GameTimePassed = 0f;
     TimeCounter m_TimerAntibody = new TimeCounter(),m_TimerPickup=new TimeCounter(GameConsts.F_TCellPickupDuration);
@@ -22,11 +23,11 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
 
 
     Text m_GameTime, m_GameProgress, m_AntibodyTime;
-    Transform m_GameResult;
-    Text m_GameResult_Title;
-    Button m_GameResult_Restart;
+    Transform m_GamePanel;
+    Image m_GamePanel_Background;
+    Text m_GamePanel_Button_Text;
+    Button m_GamePanel_Button;
     Button m_Quit;
-
     protected override void Awake()
     {
         base.Awake();
@@ -36,12 +37,12 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_EntityPool = new ObjectPoolSimpleComponent<int, GameEntityBase>(transform.Find("Entities"),"EntityItem");
         m_PickupPool=new ObjectPoolSimpleComponent<enum_TCellState, GamePickup>(transform.Find("Pickups"),"GridItem");
         m_Quit.onClick.AddListener(Application.Quit);
-        m_GameResult_Restart.onClick.AddListener(GameStart);
+        m_GamePanel_Button.onClick.AddListener(GameStart);
+        m_Resources = GetComponent<GameResources>();
     }
     private void Start()
     {
-        GameStart();
-
+        ShowGamePanel("home", "Start", GameStart);
     }
     void GameStart()
     {
@@ -116,7 +117,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_GameTimePassed = 0f;
         SpawnPickups();
         PrepareAntibody();
-        m_GameResult.SetActivate(!m_Gaming);
+        m_GamePanel.SetActivate(!m_Gaming);
     }
 
     private void Update()
@@ -197,6 +198,9 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_PickupPool.ClearPool();
         TCommon.TraversalEnum((enum_TCellState state) =>
         {
+            if (state == enum_TCellState.Normal)
+                return;
+
             GamePickup pickup = m_PickupPool.AddItem(state);
             (pickup.transform as RectTransform).anchoredPosition = RandomPathPoint().Pos;
             pickup.Play(state);
@@ -223,8 +227,17 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     void OnGameFinish(bool win)
     {
         m_Gaming = false;
-        m_GameResult.SetActivate(!m_Gaming);
-        m_GameResult_Title.text = win ? "Win" : "Lose";
+        ShowGamePanel(win?"win":"lose","Restart",GameStart);
+    }
+
+
+    void ShowGamePanel(string bg,string text,Action OnClick)
+    {
+        m_GamePanel.SetActivate(true);
+        m_GamePanel_Button_Text.text = text;
+        m_GamePanel_Background.sprite = m_Resources.m_GameAtlas["game_"+bg];
+        m_GamePanel_Button.onClick.RemoveAllListeners();
+        m_GamePanel_Button.onClick.AddListener(()=> { OnClick();m_GamePanel.SetActivate(false); });
     }
 
     #region Pathfind

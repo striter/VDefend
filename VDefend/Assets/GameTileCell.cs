@@ -31,7 +31,7 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill
     void StatusChange()
     {
         m_Container.SetActivate(!m_Disabled);
-        m_Container_Image.sprite = GameResources.Instance.m_CellSprite[m_Infected];
+        m_Container_Image.sprite = GameManager.Instance.m_Resources.m_GameAtlas[m_Infected?"cell_healthy":"cell_infected"];
         m_Container_Infect.SetActivate(m_Infected);
         m_Container_Deinfect.SetActivate(m_Infected);
         m_Container_Infect.fillAmount = 1 - m_TimerInfect.m_TimeLeftScale;

@@ -98,23 +98,6 @@ namespace GameSettings
             }
             return data;
         }
-        public static Color GetColor(this enum_TCellState type)
-        {
-            switch(type)
-            {
-                default:
-                    return Color.magenta;
-                case enum_TCellState.Assist:
-                    return Color.blue;
-                    case enum_TCellState.Normal:
-                    return Color.grey;
-                case enum_TCellState.Attack:
-                    return Color.red;
-                case enum_TCellState.Restrain:
-                    return Color.grey;
-            }
-        }
-
         public static enum_PathDirection InverseDirection(this enum_PathDirection direction)
         {
             switch(direction)
