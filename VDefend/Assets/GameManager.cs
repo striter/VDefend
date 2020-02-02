@@ -240,7 +240,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_Gaming = false;
         m_Audios.SwitchBGM(m_Gaming);
         m_Audios.Play(win?"Result_win":"Result_lose");
-        ShowGamePanel(win?"game":"lose", win ? "HEALTH IS ALL" : "LIFE IS SHORT", GameStart);
+        ShowGamePanel(win?"win":"lose", win ? "HEALTH IS ALL" : "LIFE IS SHORT", GameStart);
     }
 
 
