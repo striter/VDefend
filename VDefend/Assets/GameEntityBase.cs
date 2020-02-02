@@ -91,7 +91,7 @@ public class GameEntityBase : MonoBehaviour,ISingleCoroutine{
         {
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, absorbPos, value);
             transform.localScale = Vector3.one * Mathf.Lerp(1,.5f,value); 
-        }, 0, 1, 2f,()=> {
+        }, 0, 1, .5f,()=> {
             DoRecycle(m_Identity);
         }));
     }
