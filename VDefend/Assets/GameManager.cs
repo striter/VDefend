@@ -280,13 +280,11 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
     public void TryPathFind(Vector2 source, Vector2 destination, ref Queue<Vector2> paths)
     {
         GameTilePath sourcePath = GetPathFindPoint(source);
-        TryPathFind(sourcePath, GetPathFindPoint(destination), ref paths, Vector2.Distance(source,sourcePath.Pos)>GameConsts.F_TileSize*2/3f);
+        TryPathFind(sourcePath, GetPathFindPoint(destination), ref paths);
     }
-    public void TryPathFind(GameTilePath sourcePath, GameTilePath targetPath, ref Queue<Vector2> paths,bool addSource=false)
+    public void TryPathFind(GameTilePath sourcePath, GameTilePath targetPath, ref Queue<Vector2> paths)
     {
         paths.Clear();
-        if(addSource)
-        paths.Enqueue(sourcePath.Pos);
         Vector3 destination = targetPath.Pos;
         GameTilePath currentPath = sourcePath;
         int pathFindCount = 0;
