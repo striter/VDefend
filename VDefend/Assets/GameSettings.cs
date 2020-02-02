@@ -6,9 +6,9 @@ namespace GameSettings
     public enum enum_EntityType
     {
         Invalid=-1,
-        TCell=1,
+        TCell=3,
         Virus=2,
-        Antibody=3,
+        Antibody=1,
     }
 
     public enum enum_TCellState
