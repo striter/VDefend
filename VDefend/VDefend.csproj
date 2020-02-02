@@ -262,15 +262,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameAudio.cs" />
-    <Compile Include="Assets\GameEntityBase.cs" />
-    <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\GamePickup.cs" />
-    <Compile Include="Assets\GameResources.cs" />
-    <Compile Include="Assets\GameSettings.cs" />
-    <Compile Include="Assets\GameTileBase.cs" />
-    <Compile Include="Assets\GameTileCell.cs" />
-    <Compile Include="Assets\GameTilePath.cs" />
     <Compile Include="Assets\LongHauls\Scripts\Core\AudioItemBase.cs" />
     <Compile Include="Assets\LongHauls\Scripts\Core\AudioManagerBase.cs" />
     <Compile Include="Assets\LongHauls\Scripts\Core\CameraController.cs" />
@@ -314,6 +305,15 @@
     <Compile Include="Assets\LongHauls\Scripts\UITools\UIT_SubTitleItem.cs" />
     <Compile Include="Assets\LongHauls\Scripts\UITools\UIT_SystemInfoItem.cs" />
     <Compile Include="Assets\LongHauls\Scripts\UITools\UIT_TextExtend.cs" />
+    <Compile Include="Assets\Scripts\GameAudio.cs" />
+    <Compile Include="Assets\Scripts\GameEntityBase.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GamePickup.cs" />
+    <Compile Include="Assets\Scripts\GameResources.cs" />
+    <Compile Include="Assets\Scripts\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\GameTileBase.cs" />
+    <Compile Include="Assets\Scripts\GameTileCell.cs" />
+    <Compile Include="Assets\Scripts\GameTilePath.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LongHauls\Shaders\Common\Diffuse_Base.shader" />
