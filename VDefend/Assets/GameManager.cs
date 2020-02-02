@@ -287,9 +287,13 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         paths.Clear();
         Vector3 destination = targetPath.Pos;
         GameTilePath currentPath = sourcePath;
+
         int pathFindCount = 0;
         while(pathFindCount<15)
         {
+            if (currentPath == targetPath)
+                break;
+
             pathFindCount++;
             GameTilePath nextPath = null;
             float pathDistance = float.MaxValue;
@@ -308,8 +312,6 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             });
             currentPath = nextPath;
             paths.Enqueue(nextPath.Pos);
-            if (nextPath == targetPath)
-                break;
         }
     }
     #endregion
