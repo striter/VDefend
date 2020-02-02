@@ -42,9 +42,9 @@ namespace GameSettings
         public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 3;
         public const float F_InfectDisableDuration = 20f;
-        public const float F_DisableDuration = 70f;
+        public const float F_DisableDuration= 40f;
         public const float F_CellDeinfectDuration = 3f;
-        public const float F_AntibodyEffectRange = 30f;
+        public const float F_AntibodyEffectRange = 50f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
         public const float F_TCellPickupDuration = 30f;
@@ -55,14 +55,14 @@ namespace GameSettings
     {
         public static float GameAntibodyDuration(float gameTime, bool playerAsssiting)
         {
-            float duration = gameTime > 120f ? 5f : 10f;
+            float duration = gameTime > 60f ? 5f : 7f;
             //if (playerAsssiting)
             //    duration /= 2;
             return duration;
         }
         public static int GameAntibodyCount(float gameTime, bool playerAsssiting)
         {
-            int count = (int)(gameTime / 120) + 2;
+            int count = (int)(gameTime / 20) + 1;
             if (playerAsssiting)
                 count *= 2;
             count = Mathf.Clamp(count, 0, 10);
