@@ -38,12 +38,12 @@ namespace GameSettings
         public const int I_TileYCount = 5;
         public const float F_TileSize = 90;
 
-        public const int I_StartVirusCount = 5;
+        public const int I_StartVirusCount = 7;
         public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 3;
-        public const float F_InfectDisableDuration = 25f;
+        public const float F_InfectDisableDuration = 20f;
         public const float F_DisableDuration= 70f;
-        public const float F_CellDeinfectDuration = 2f;
+        public const float F_CellDeinfectDuration = 3f;
         public const float F_AntibodyEffectRange = 30f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
@@ -90,7 +90,7 @@ namespace GameSettings
                             data = new EntityData(150f, 180f, 2f);
                             break;
                         case enum_TCellState.Restrain:
-                            data = new EntityData(20f, 180f, .25f);
+                            data = new EntityData(50f, 180f, .25f);
                             break;
                         case enum_TCellState.Assist:
                             data = new EntityData(50f, 180f, 0f);
