@@ -38,17 +38,17 @@ namespace GameSettings
         public const int I_TileYCount = 5;
         public const float F_TileSize = 90;
 
-        public const int I_StartVirusCount = 1;
-        public const int I_StartAllyCount = 1;
+        public const int I_StartVirusCount = 5;
+        public const int I_StartAllyCount = 0;
         public const int I_BreakOutVirusCount = 2;
-        public const float F_InfectDisableDuration = 5f;
+        public const float F_InfectDisableDuration = 30f;
         public const float F_DisableDuration= 10f;
         public const float F_CellDeinfectDuration = 3f;
-        public const float F_AntibodyEffectRange = 100f;
+        public const float F_AntibodyEffectRange = 20f;
         public const float F_AntibodyGenerateRange = 300f;
         public const float F_TCellPickupRange = 50f;
         public const float F_TCellPickupDuration = 30f;
-        public const float F_GameLoseScale = .2f;
+        public const float F_GameLoseScale = .3f;
     }
 
     public static class GameExpressions
@@ -56,13 +56,13 @@ namespace GameSettings
         public static float GameAntibodyDuration(float gameTime, bool playerAsssiting)
         {
             float duration = gameTime > 120f ? 5f : 10f;
-            if (playerAsssiting)
-                duration /= 2;
+            //if (playerAsssiting)
+            //    duration /= 2;
             return duration;
         }
         public static int GameAntibodyCount(float gameTime, bool playerAsssiting)
         {
-            int count = (int)(gameTime / 120) + 1;
+            int count = (int)(gameTime / 120) + 3;
             if (playerAsssiting)
                 count *= 2;
             count = Mathf.Clamp(count, 0, 10);
