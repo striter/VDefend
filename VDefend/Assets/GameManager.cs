@@ -147,12 +147,12 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         int m_InfectCount = 0;
         float deltaTime = Time.deltaTime;
         m_GameTimePassed += deltaTime;
-        m_CellTilePool.m_ActiveItemDic.Traversal((GameTileCell tile) =>
+        m_CellTilePool.m_ActiveItemDic.Traversal((GameTileCell cell) =>
         {
-            tile.Tick(deltaTime);
-            if (tile.m_Disabled)
+            cell.Tick(deltaTime);
+            if (cell.m_Disabled)
                 m_DisableCount++;
-            else if (tile.m_Infected)
+            else if (cell.m_Infected)
                 m_InfectCount++;
         });
         m_EntityPool.m_ActiveItemDic.Traversal((GameEntityBase entity) => {
@@ -164,14 +164,13 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         PickupTick(deltaTime);
         AntibodyTick(deltaTime);
 
-
-        float gameProgress = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
+        float healthStatus = 1 - m_DisableCount / (float)m_CellTilePool.m_ActiveItemDic.Count;
         m_AntibodyTime.text = string.Format("Antibody:{0:F2}", m_TimerAntibody.m_timeCheck);
-        m_GameProgress.text = string.Format("Progress:{0:F2}, Infect:{1}, Virus:{2}", gameProgress, m_InfectCount, m_VirusCount);
-        m_ProgressBar.fillAmount = gameProgress;
+        m_GameProgress.text = string.Format("HealthStatus:{0:F2}, Infect:{1}, Virus:{2}", healthStatus, m_InfectCount, m_VirusCount);
+        m_ProgressBar.fillAmount = healthStatus;
         m_GameTime.text = string.Format("Time:{0:F2}", m_GameTimePassed);
 
-        if (gameProgress < GameConsts.F_GameLoseScale)
+        if (healthStatus < GameConsts.F_GameLoseScale)
             OnGameFinish(false);
         if (m_InfectCount == 0 && m_VirusCount == 0)
             OnGameFinish(true);
