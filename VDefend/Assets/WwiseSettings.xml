@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<WwiseSettings>
+    <CreateWwiseGlobal>true</CreateWwiseGlobal>
+    <CreateWwiseListener>true</CreateWwiseListener>
+    <SoundbankPath>Audio/GeneratedSoundBanks</SoundbankPath>
+    <WwiseProjectPath>C:/Users/SEELE/Documents/WwiseProjects/Immune_WwiseProject/Immune_WwiseProject.wproj</WwiseProjectPath>
+    <WwiseInstallationPathWindows>C:\Program Files (x86)\Audiokinetic\Wwise 2019.1.6.7110</WwiseInstallationPathWindows>
+    <WwiseInstallationPathMac></WwiseInstallationPathMac>
+</WwiseSettings>
