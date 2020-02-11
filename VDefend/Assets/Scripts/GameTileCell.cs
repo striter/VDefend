@@ -73,9 +73,11 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
                     }
                 }
                 if (breakOut)
-                    GameManager.Instance.m_Audios.Play("Cell_death_outbreak", 2);
+                    GameManager.Instance.m_Audios.Play("Cell_death_outbreak");
+                    //AkSoundEngine.PostEvent("Cell_death_outbreak",gameObject);
                 if (antiBodyCost)
                     GameManager.Instance.m_Audios.Play("Antibody_eat");
+                    
 
                 DoDisable();
             }
@@ -89,6 +91,7 @@ public class GameTileCell : GameTileBase, TReflection.UI.IUIPropertyFill, ISingl
             return;
         m_Infected = true; 
         StatusChange();
+        GameManager.Instance.m_Audios.Play("Cell_infected");
     }
     
     public void DoDeinfect(float deltaTime)

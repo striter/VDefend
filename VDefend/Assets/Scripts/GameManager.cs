@@ -188,7 +188,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
             int count = GameExpressions.GameAntibodyCount(m_GameTimePassed, m_Player.m_TCellType == enum_TCellState.Assist);
             for(int i=0;i<count;i++)
                 SpawnEntity( enum_EntityType.Antibody,m_AntibodyPos+new Vector2(UnityEngine.Random.value*GameConsts.F_AntibodyGenerateRange, UnityEngine.Random.value*GameConsts.F_AntibodyGenerateRange) );
-            m_Audios.Play("Antibody_appear", 2);
+            m_Audios.Play("Antibody_appear");
             PrepareAntibody();
         }
     }
@@ -250,7 +250,7 @@ public class GameManager : SimpleSingletonMono<GameManager>,TReflection.UI.IUIPr
         m_GamePanel_Button_Text.text = text;
         m_GamePanel_Background.sprite = m_Resources.m_GameAtlas["game_"+bg];
         m_GamePanel_Button.onClick.RemoveAllListeners();
-        m_GamePanel_Button.onClick.AddListener(()=> { m_Audios.Play("UI",2); OnClick();m_GamePanel.SetActivate(false); });
+        m_GamePanel_Button.onClick.AddListener(()=> { m_Audios.Play("UI_1"); OnClick();m_GamePanel.SetActivate(false); });
     }
 
     void OnQuitClick()

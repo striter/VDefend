@@ -11,14 +11,344 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f584b3c3f5456b240b3c7a75c6384ec4, type: 3}
   m_Name: AkWwiseProjectData
   m_EditorClassIdentifier: 
-  AcousticTextureWwu: []
-  AuxBusWwu: []
-  BankWwu: []
-  EventWwu: []
-  RtpcWwu: []
-  StateWwu: []
-  SwitchWwu: []
-  TriggerWwu: []
-  ExpandedItems: []
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 41d1c4ab9c42d4449480b1b1142c2845
+    GuidInternal: 
+    m_lastTime: -8586206347046171366
+    List: []
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: cba711f63593a047a15f89559b68ede7
+    GuidInternal: 
+    m_lastTime: -8586206347045690317
+    List: []
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 7bfb8af2ffca4e4bb87d001bf1e5a966
+    GuidInternal: 
+    m_lastTime: -8586201944567740706
+    List:
+    - name: SoundBank
+      guid: cfddf94753f1904ea576b3a095220942
+      id: 1661994096
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SoundBank
+        ObjectType: 7
+      Path: Default Work Unit\SoundBank
+  EventWwu:
+  - PhysicalPath: Events\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 4b480cbf602a05439ec6b7d41f893e13
+    GuidInternal: 
+    m_lastTime: -8586201940272504938
+    List:
+    - name: Anotibody_eat
+      guid: 6cf21448eb37ef4fb80694ac443d47ba
+      id: 1790562525
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Anotibody_eat
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Anotibody_eat
+      maxAttenuation: 0
+      maxDuration: 0.224
+      minDuration: 0.224
+    - name: Antibody_alert
+      guid: 1ca9cdc51aa19747ae29d45ff59e71d2
+      id: 1585600542
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Antibody_alert
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Antibody_alert
+      maxAttenuation: 0
+      maxDuration: 2.501333
+      minDuration: 2.501333
+    - name: Antibody_appear
+      guid: 127f9dbe26cc7545994628c2d14d382d
+      id: 3123036879
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Antibody_appear
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Antibody_appear
+      maxAttenuation: 0
+      maxDuration: 0.746144
+      minDuration: 0.709136
+    - name: Cell_death_outbreak
+      guid: 722dc003f7c876439b27564701b56c38
+      id: 2848479696
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Cell_death_outbreak
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Cell_death_outbreak
+      maxAttenuation: 0
+      maxDuration: 0.854
+      minDuration: 0.838585
+    - name: Cell_death_peace
+      guid: 112a48299f417245bb750d790919334e
+      id: 1413097465
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Cell_death_peace
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Cell_death_peace
+      maxAttenuation: 0
+      maxDuration: 1.143333
+      minDuration: 1.143333
+    - name: Cell_generate
+      guid: a3406ec0b083274795d4fb6e436e0304
+      id: 2510301729
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Cell_generate
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Cell_generate
+      maxAttenuation: 0
+      maxDuration: 0.394333
+      minDuration: 0.394333
+    - name: Cell_infected
+      guid: 7f5585d0d4f6dd42ae3d18027ef36423
+      id: 2414390312
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Cell_infected
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Cell_infected
+      maxAttenuation: 0
+      maxDuration: 0.802667
+      minDuration: 0.802667
+    - name: game
+      guid: c4f019e16e07b54ead1246c0d0da8676
+      id: 702482391
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: game
+        ObjectType: 3
+      Path: Default Work Unit\Music\game
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Item_generate
+      guid: c981762a94bd2c46a621ec8fad6bfca7
+      id: 4077967014
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Item_generate
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Item_generate
+      maxAttenuation: 0
+      maxDuration: 0.576167
+      minDuration: 0.576167
+    - name: Item_use
+      guid: d1a82371e0127d44b4cfb6c4b5328407
+      id: 905085692
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Item_use
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Item_use
+      maxAttenuation: 0
+      maxDuration: 1.180667
+      minDuration: 1.180667
+    - name: menu
+      guid: 441c927ba5cc1d408831d0cce4142c77
+      id: 2607556080
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: menu
+        ObjectType: 3
+      Path: Default Work Unit\Music\menu
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Music
+      guid: ecc3ae5a42d3024c94df1c937d06e542
+      id: 3991942870
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: Music
+        ObjectType: 3
+      Path: Default Work Unit\Music\Music
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Result_lose
+      guid: f7ae28c70ab01146b0e7015d40b8d963
+      id: 1185184642
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Result_lose
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Result_lose
+      maxAttenuation: 0
+      maxDuration: 8.235063
+      minDuration: 8.235063
+    - name: Result_win
+      guid: 1ce72df5b0160e408a71270555beea75
+      id: 2888325785
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX
+        ObjectType: 4
+      - ElementName: Result_win
+        ObjectType: 3
+      Path: Default Work Unit\SFX\Result_win
+      maxAttenuation: 0
+      maxDuration: 5.525333
+      minDuration: 5.525333
+    - name: UI_0
+      guid: de8b45a88899534194ae8983b2f85f83
+      id: 600582478
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: UI_0
+        ObjectType: 3
+      Path: Default Work Unit\UI\UI_0
+      maxAttenuation: 0
+      maxDuration: 0.687672
+      minDuration: 0.687672
+    - name: UI_1
+      guid: a450807eaf143244a74f80f335e750a4
+      id: 600582479
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: UI_1
+        ObjectType: 3
+      Path: Default Work Unit\UI\UI_1
+      maxAttenuation: 0
+      maxDuration: 0.447912
+      minDuration: 0.447912
+    - name: UI_2
+      guid: 3d3670f33be9bb4bb1060f790c83843c
+      id: 600582476
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: UI_2
+        ObjectType: 3
+      Path: Default Work Unit\UI\UI_2
+      maxAttenuation: 0
+      maxDuration: 0.801664
+      minDuration: 0.801664
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 700f3d8c7a832f4e806bf64e194de797
+    GuidInternal: 
+    m_lastTime: -8586206347045546211
+    List: []
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 70ff5d3845d1b24185ebdd84bd82b13a
+    GuidInternal: 
+    m_lastTime: -8586206031061952996
+    List:
+    - name: Result
+      guid: 033b4bf90c832042b4b6010fef6d9953
+      id: 936499202
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Result
+        ObjectType: 9
+      Path: Default Work Unit\Result
+      values:
+      - name: Lose
+        guid: de76c8802c285d4888b5473e8227a947
+        id: 221232726
+        PathAndIcons:
+        - ElementName: Lose
+          ObjectType: 8
+      - name: None
+        guid: 40f07f405845d348b00f3049d38de62e
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: Win
+        guid: 62950eaa735c5a48ad1ccaafb26a6f5a
+        id: 979765101
+        PathAndIcons:
+        - ElementName: Win
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 549833923dd81844ada15ccfcd2a1365
+    GuidInternal: 
+    m_lastTime: -8586206347045739927
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: d874e3731e64154c98ad5e7e3dde5bce
+    GuidInternal: 
+    m_lastTime: -8586206347046528290
+    List: []
+  ExpandedItems:
+  - /Immune_WwiseProject
+  - /Immune_WwiseProject/Events
+  - /Immune_WwiseProject/Events/Default Work Unit
+  - /Immune_WwiseProject/Events/Default Work Unit/SFX
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
